@@ -1,3 +1,5 @@
+// this is just data model with faker js as data generator
+
 var faker = require('faker');
 
 var users = [];
