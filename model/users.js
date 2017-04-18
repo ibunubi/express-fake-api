@@ -1,11 +1,18 @@
 var faker = require('faker');
 
-module.exports = {
-	'id': 1,
-	'first_name': faker.name.firstName(),
-	'last_name': faker.name.lastName(),
-	'email': faker.internet.email(),
-	'username': faker.internet.userName(),
-	'password': faker.internet.password(),
-	'avatar': faker.internet.avatar()
-};
+var users = [];
+
+for (var index = 1; index <= 50; index++) {
+	let newRow = {
+		'id': index,
+		'first_name': faker.name.firstName(),
+		'last_name': faker.name.lastName(),
+		'email': faker.internet.email(),
+		'username': faker.internet.userName(),
+		'password': faker.internet.password(),
+		'avatar': faker.internet.avatar()
+	};
+	users.push(newRow);
+}
+
+module.exports = users;
