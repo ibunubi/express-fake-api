@@ -25,10 +25,20 @@ router.get('/:model/:id?', function(req, res) {
 
 router.post('/:model/:id?', function(req, res) {
   if (!req.body) return res.sendStatus(400);
-  readFiles('./model/data/' + req.params.model + '.js', function(filename, content) {
-    console.log(JSON.parse(content));
-    
-    res.json(req.body);
+  var src = './model/data/' + req.params.model + '.js';
+
+  readFiles(src, function(filename, content) {
+    var existing = JSON.parse(content);
+    var lastId = existing[existing.length-1].id;
+
+    var newData = req.body;
+    newData.id = ++lastId;
+
+    existing.push(newData);
+
+    writer(src, JSON.stringify(existing, null, ' '));
+
+    res.json(newData);
   }, function(err) {
     res.json(err);
   });
