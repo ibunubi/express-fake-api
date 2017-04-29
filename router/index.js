@@ -25,7 +25,7 @@ router.get('/:model/:id?', function(req, res) {
 
 router.post('/:model/:id?', function(req, res) {
   if (!req.body) return res.sendStatus(400);
-  readFiles('../model/data/' + req.params.model + '.js', function(filename, content) {
+  readFiles('./model/data/' + req.params.model + '.js', function(filename, content) {
     console.log(JSON.parse(content));
     
     res.json(req.body);
