@@ -36,7 +36,7 @@ router.post('/:model/:id?', function(req, res) {
 
     existing.push(newData);
 
-    writer(src, JSON.stringify(existing, null, ' '));
+    writer(src, JSON.stringify(existing, null, 2));
 
     res.json(newData);
   }, function(err) {
