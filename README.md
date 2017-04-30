@@ -7,8 +7,8 @@ API helper to make development process easier. Using json data as fake storage, 
 ## Using
 * `npm install`
 * Access it using `http://localhost:8080/api/:model/:id?`
-> * `:model` is representing data from file in `./model/data`
-> * `:id` is representing the data primary key
+  * `:model` is representing data from file in `./model/data`
+  * `:id` is representing the data primary key
 
 ## URL method Detail
 * `GET`: request data
