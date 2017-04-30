@@ -13,19 +13,28 @@ router.get('/:model/:id?', function(req, res) {
   var model = req.params.model;
   var store = data[model];
 
+  if(typeof store == 'undefined') res.json({"error": true, "code": 500, "desc": "internal server error"});
+
   console.log(req.originalUrl);
   
   if(req.params.id){
     let index = _.findIndex(store, function(o) { return o.id == req.params.id; });
     if(index > -1) store = store[index];
-    else store = {};
+    else store = {"error": true, "code": 404, "desc": "data not found"};
   }
   res.json(store);
 });
 
 router.post('/:model/:id?', function(req, res) {
   if (!req.body) return res.sendStatus(400);
-  var src = './model/data/' + req.params.model + '.js';
+
+  var model = req.params.model;
+  var id = req.params.id;
+  var store = data[model];
+
+  if(typeof store == 'undefined') res.json({"error": true, "code": 500, "desc": "internal server error"});
+
+  var src = './model/data/' + model + '.js';
 
   readFiles(src, function(filename, content) {
     var existing = JSON.parse(content);
