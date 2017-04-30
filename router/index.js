@@ -37,7 +37,7 @@ router.post('/:model/:id?', function(req, res) {
 
   readFiles(src, function(filename, content) {
     var existing = JSON.parse(content);
-    var lastId = existing[existing.length-1].id;
+    var lastId = (existing.length>0)?(existing[existing.length-1].id):0;
 
     var newData = req.body;
     if(typeof req.params.id != 'undefined') {
