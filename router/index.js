@@ -29,7 +29,6 @@ router.post('/:model/:id?', function(req, res) {
   if (!req.body) return res.sendStatus(400);
 
   var model = req.params.model;
-  var id = req.params.id;
   var store = data[model];
 
   if(typeof store == 'undefined') res.json({"error": true, "code": 500, "desc": "internal server error"});
@@ -41,7 +40,15 @@ router.post('/:model/:id?', function(req, res) {
     var lastId = existing[existing.length-1].id;
 
     var newData = req.body;
-    newData.id = ++lastId;
+    if(typeof req.params.id != 'undefined') {
+      _.remove(existing, function(item) {
+        return item.id == req.params.id; // or some complex logic
+      });
+      
+      newData.id = req.params.id;
+    }
+    else
+      newData.id = ++lastId;
 
     existing.push(newData);
 
